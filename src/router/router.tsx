@@ -7,6 +7,10 @@ export const routerConfig = [
         element: <MainPage />,
     },
     {
+        path: "/main",
+        element: <MainPage />,
+    },
+    {
         path: "/about",
         element: <AboutPage />,
     }

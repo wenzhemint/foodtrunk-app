@@ -1,12 +1,11 @@
 import { FC } from "react"
 import styles from "./MainPage.module.scss"
-import Menu from "../../components/Menu/Menu"
-
+import MenuComp from "../../components/MenuComp/MenuComp"
 
 const MainPage: FC = () => {
     return (
         <div className="main-page">
-            <Menu />
+            <MenuComp />
             <div className="content">
                 Main Page
             </div>
