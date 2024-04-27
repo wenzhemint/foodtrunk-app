@@ -7,7 +7,7 @@ export type ThemePropsType = {
 }
 
 const contextDefaultValues: ThemePropsType = {
-    currentTheme: PAGE_THEME.LIGHT,
+    currentTheme: PAGE_THEME.DARK,
     setCurrentTheme: () => {}
 };
 

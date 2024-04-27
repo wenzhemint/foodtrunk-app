@@ -47,7 +47,10 @@ const MenuComp: FC = () => {
       <Menu onClick={onSwichTab} selectedKeys={[selectedTab]} mode="horizontal" items={items} theme={currentTheme==PAGE_THEME.DARK?'dark':'light'} />
 
       <div className={`${styles.swichMode}`}>
-        <Switch onChange={onChangeTheme} defaultChecked={false} />
+        <div className={currentTheme==PAGE_THEME.DARK?`${styles.isActive}`:''}>Dark Mode: </div>
+        <div className={`${styles.swichModeBtn}`}>
+          <Switch onChange={onChangeTheme} defaultChecked={currentTheme==PAGE_THEME.DARK?true:false} />
+        </div>
       </div>
     </div>
   );

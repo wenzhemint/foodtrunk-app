@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+/* common styles */
+.is-dark-mode {
+  background-color: #001529;
+  color: #FFF;
+}
+
+.main-page,
+.about-page {
+  height: 100vh;
+}

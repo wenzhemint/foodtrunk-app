@@ -6,6 +6,15 @@
         top: 50%;
         transform: translateY(-50%);
         right: 16px;
-        color: #FFF;
+        display: flex;
+        align-items: center;
+
+        .isActive {
+            color: #FFF;
+        }
+
+        .swichModeBtn {
+            margin-left: 10px;
+        }
     }
 }
