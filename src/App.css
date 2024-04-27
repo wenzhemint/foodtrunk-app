@@ -43,7 +43,6 @@
   color: #FFF;
 }
 
-.main-page,
-.about-page {
-  height: 100vh;
+.container {
+  min-height: 100vh;
 }

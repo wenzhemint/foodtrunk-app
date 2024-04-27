@@ -8,12 +8,14 @@ const AboutPage: FC = () => {
     const { currentTheme } = useContext(ThemeContext)
     
     return (
-        <div className={`about-page ${currentTheme==PAGE_THEME.DARK?'is-dark-mode':''}`}>
-            <MenuComp />
-            <div>
-                About Page
+        <>
+            <div className={`container ${currentTheme==PAGE_THEME.DARK?'is-dark-mode':''}`}>
+                <MenuComp />
+                <div className={`${styles.aboutPage}`}>
+                    About Page
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 

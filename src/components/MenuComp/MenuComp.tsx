@@ -43,16 +43,18 @@ const MenuComp: FC = () => {
   };
 
   return (
-    <div className={`${styles.menuComp}`}>
-      <Menu onClick={onSwichTab} selectedKeys={[selectedTab]} mode="horizontal" items={items} theme={currentTheme==PAGE_THEME.DARK?'dark':'light'} />
+    <>
+      <div className={`${styles.menuComp}`}>
+        <Menu onClick={onSwichTab} selectedKeys={[selectedTab]} mode="horizontal" items={items} theme={currentTheme==PAGE_THEME.DARK?'dark':'light'} />
 
-      <div className={`${styles.swichMode}`}>
-        <div className={currentTheme==PAGE_THEME.DARK?`${styles.isActive}`:''}>Dark Mode: </div>
-        <div className={`${styles.swichModeBtn}`}>
-          <Switch onChange={onChangeTheme} defaultChecked={currentTheme==PAGE_THEME.DARK?true:false} />
+        <div className={`${styles.swichMode}`}>
+          <div className={currentTheme==PAGE_THEME.DARK?`${styles.isActive}`:''}>Dark Mode: </div>
+          <div className={`${styles.swichModeBtn}`}>
+            <Switch onChange={onChangeTheme} defaultChecked={currentTheme==PAGE_THEME.DARK?true:false} />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
