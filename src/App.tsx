@@ -1,9 +1,9 @@
-import React from 'react';
-import './App.css';
+import React from 'react'
+import './App.css'
 import {
   createBrowserRouter,
   RouterProvider
-} from "react-router-dom";
+} from "react-router-dom"
 import { routerConfig } from './router/router'
 
 const router = createBrowserRouter(routerConfig)
