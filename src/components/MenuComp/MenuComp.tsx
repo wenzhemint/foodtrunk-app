@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { FC, useContext, useState } from "react"
 import styles from "./Menu.module.scss"
 import { Menu } from "antd"
 import type { MenuProps } from 'antd'
@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { updateMenuTab } from "../../redux/menu/menuSlice"
 import { Switch } from "antd"
+import { ThemeContext } from "../../context/themeContext"
+import { PAGE_THEME } from "../../config/constants"
 
 const items: MenuProps['items'] = [
   {
@@ -24,6 +26,7 @@ const items: MenuProps['items'] = [
 const MenuComp: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
+  const { currentTheme, setCurrentTheme } = useContext(ThemeContext)
   const selectedTab = useSelector((state: any) => state.menu.selectedTab)
 
   const onSwichTab: MenuProps['onClick'] = (e) => {
@@ -35,14 +38,16 @@ const MenuComp: FC = () => {
 
   const onChangeTheme = (checked: boolean) => {
     console.log(`switch to ${checked}`);
+    const newTheme = checked?PAGE_THEME.DARK:PAGE_THEME.LIGHT
+    setCurrentTheme(newTheme)
   };
 
   return (
     <div className={`${styles.menuComp}`}>
-      <Menu onClick={onSwichTab} selectedKeys={[selectedTab]} mode="horizontal" items={items} theme="dark" />
+      <Menu onClick={onSwichTab} selectedKeys={[selectedTab]} mode="horizontal" items={items} theme={currentTheme==PAGE_THEME.DARK?'dark':'light'} />
 
       <div className={`${styles.swichMode}`}>
-        <Switch onChange={onChangeTheme} defaultChecked={true} />
+        <Switch onChange={onChangeTheme} defaultChecked={false} />
       </div>
     </div>
   );
