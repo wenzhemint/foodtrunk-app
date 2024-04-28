@@ -1,4 +1,4 @@
-import { FC, useContext } from "react"
+import { FC, useContext, useEffect } from "react"
 import styles from "./AboutPage.module.scss"
 import MenuComp from "../../components/MenuComp/MenuComp"
 import { ThemeContext } from "../../context/themeContext";
@@ -6,6 +6,10 @@ import { PAGE_THEME } from "../../config/constants";
 
 const AboutPage: FC = () => {
     const { currentTheme } = useContext(ThemeContext)
+
+    useEffect(() => {
+        console.log("about page mounted.")
+    }, [])
     
     return (
         <>

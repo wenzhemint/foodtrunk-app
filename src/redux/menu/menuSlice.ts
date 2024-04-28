@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    selectedTab: 'about'
+    selectedTab: 'main'
 }
 
 const menuSlice = createSlice({

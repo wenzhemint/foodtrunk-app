@@ -1,43 +1,57 @@
-import { FC, useContext, useState } from "react"
+import { FC, useContext, useEffect, useState } from "react"
 import styles from "./SearchBlock.module.scss"
 import { Input } from 'antd'
 import { Table } from 'antd'
 import type { TableColumnsType } from 'antd'
+import { useSelector } from "react-redux"
+import { Pagination } from 'antd'
+
+type SearchBlockProps = {
+  title?: string;
+  updateFacilitiesNext: (page: number) => void;
+} 
 
 const { Search } = Input;
 interface DataType {
-  key: React.Key;
-  name: string;
-  age: number;
+  locationid: number;
+  facilityType: string;
+  locationDescription: string;
   address: string;
+  zipCodes: number;
 }
 const columns: TableColumnsType<DataType> = [
   {
-    title: 'Name',
-    dataIndex: 'name',
+    title: 'Type',
+    dataIndex: 'facilityType',
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
+    title: 'Location Description',
+    dataIndex: 'locationDescription',
   },
   {
     title: 'Address',
     dataIndex: 'address',
   },
+  {
+    title: 'ZipCode',
+    dataIndex: 'zipCodes',
+  },
 ];
-const data: DataType[] = [];
-for (let i = 0; i < 20; i++) {
-  data.push({
-    key: i,
-    name: `Edward King ${i}`,
-    age: 32,
-    address: `London, Park Lane no. ${i}`,
-  });
-}
 
-
-const SearchBlock: FC = () => {
+const SearchBlock: FC<SearchBlockProps> = ({ title, updateFacilitiesNext }) => {
   const [loading, setLoading] = useState(false);
+  const facilities = useSelector((state: any) => state.facility.facilities)
+  const data: DataType[] = facilities.content || []
+  
+  useEffect(() => {
+    console.log("search block mounted.")
+  })
+
+  const updatePagination = (e: any) => {
+    console.log("== e: ", e)
+    const nextIndex = e
+    updateFacilitiesNext(nextIndex)
+  }
 
   return (
     <>
@@ -51,16 +65,31 @@ const SearchBlock: FC = () => {
           />
         </div>
         
-        <div className={`${styles.searchTable}`}>
-          <Table 
-            columns={columns} 
-            dataSource={data} 
-            pagination={false} 
-            style={{
-              borderRadius: "8px",
-              overflow: "hidden"
-            }}
-          />
+        <div className={`${styles.searchContent}`}>
+          <div className={`${styles.searchTable}`}>
+            <Table 
+              columns={columns} 
+              dataSource={data} 
+              pagination={false} 
+              rowKey="locationid" 
+              style={{
+                borderRadius: "8px",
+                overflow: "hidden"
+              }}
+              className={`${styles.antdTable}`}
+            />
+          </div>
+
+          <div className={`${styles.searchPagination}`}>
+            <Pagination 
+              defaultCurrent={1} 
+              current={facilities.number?facilities.number+1:1} 
+              total={facilities?.totalPages || 1} 
+              defaultPageSize={1} 
+              showQuickJumper
+              onChange={updatePagination}
+            />
+          </div>
         </div>
       </div>
     </>

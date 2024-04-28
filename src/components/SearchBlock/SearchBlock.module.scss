@@ -4,11 +4,22 @@
     padding-left: 20px;
     padding-right: 20px;
 
-    .searchInput {
-        
-    }
-
-    .searchTable {
+    .searchContent {
         margin-top: 10px;
+        background-color: #FFF;
+        border-radius: 8px;
+
+        .searchTable {
+            .antdTable {
+                th:nth-child(1) {
+                    min-width: 100px;
+                }
+            }
+        }
+
+        .searchPagination {
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
     }
 }
