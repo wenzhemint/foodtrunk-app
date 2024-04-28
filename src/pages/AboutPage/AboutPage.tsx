@@ -1,8 +1,8 @@
 import { FC, useContext, useEffect } from "react"
 import styles from "./AboutPage.module.scss"
 import MenuComp from "../../components/MenuComp/MenuComp"
-import { ThemeContext } from "../../context/themeContext";
-import { PAGE_THEME } from "../../config/constants";
+import { ThemeContext } from "../../context/themeContext"
+import { PAGE_THEME } from "../../utils/helpers/constants"
 
 const AboutPage: FC = () => {
     const { currentTheme } = useContext(ThemeContext)

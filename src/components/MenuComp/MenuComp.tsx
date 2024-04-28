@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { updateMenuTab } from "../../redux/menu/menuSlice"
 import { Switch } from "antd"
 import { ThemeContext } from "../../context/themeContext"
-import { PAGE_THEME } from "../../config/constants"
+import { PAGE_THEME } from "../../utils/helpers/constants"
 
 const items: MenuProps['items'] = [
   {
@@ -26,7 +26,7 @@ const items: MenuProps['items'] = [
 const MenuComp: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
-  const { currentTheme, setCurrentTheme } = useContext(ThemeContext)
+  const { currentTheme, updateCurrentTheme } = useContext(ThemeContext)
   const selectedTab = useSelector((state: any) => state.menu.selectedTab)
 
   const onSwichTab: MenuProps['onClick'] = (e) => {
@@ -39,7 +39,7 @@ const MenuComp: FC = () => {
   const onChangeTheme = (checked: boolean) => {
     console.log(`switch to ${checked}`);
     const newTheme = checked?PAGE_THEME.DARK:PAGE_THEME.LIGHT
-    setCurrentTheme(newTheme)
+    updateCurrentTheme(newTheme)
   };
 
   return (

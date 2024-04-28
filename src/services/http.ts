@@ -1,7 +1,8 @@
 import axios from "axios";
 import {
   BASE_URL
-} from '../config/constants';
+} from '../config/server';
+import { NETWORK_ERROR } from "../utils/helpers/constants";
 
 const httpInterceptor = axios.create();
 
@@ -31,23 +32,19 @@ httpInterceptor.interceptors.response.use(function (response) {
   // Any status codes that falls outside the range of 2xx cause this function to trigger
   // Do something with response error
 
-  if(error.response.status) {
+  console.log(error);
+
+  if(error.message == NETWORK_ERROR) {
+    return Promise.reject(error.message);
+  } else if(error.response&&error.response.status) {
     switch (error.response.status) {
       case 401:
-        return Promise.reject('Username or Password is wrong');
+        return Promise.reject('Authentication Error');
         break;
     
       default:
         break;
     }
-  }
-
-  console.log(error);
-
-  if (error.response && error.response.data && error.response.data.error) {
-    return Promise.reject(error.response.data.error);
-  } else if (error.response && error.response.data && error.response.data.message) {
-    return Promise.reject(error.response.data.message);
   }
 
   return Promise.reject(error.message);
