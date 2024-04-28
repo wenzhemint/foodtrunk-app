@@ -1,3 +1,11 @@
+# Links to github repositories for Food Trunk task. 
+
+Backend api :
+https://github.com/wenzhemint/rostorv-api
+
+Frontend app:
+https://github.com/wenzhemint/foodtrunk-app
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
