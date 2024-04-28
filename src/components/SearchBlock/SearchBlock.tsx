@@ -8,7 +8,8 @@ import { Pagination } from 'antd'
 
 type SearchBlockProps = {
   title?: string;
-  updateFacilitiesNext: (page: number) => void;
+  loading: boolean;
+  updateFacilitiesNext: (page?: number, filter?: string) => void;
 } 
 
 const { Search } = Input;
@@ -16,7 +17,7 @@ interface DataType {
   locationid: number;
   facilityType: string;
   locationDescription: string;
-  address: string;
+  filter: string;
   zipCodes: number;
 }
 const columns: TableColumnsType<DataType> = [
@@ -38,19 +39,28 @@ const columns: TableColumnsType<DataType> = [
   },
 ];
 
-const SearchBlock: FC<SearchBlockProps> = ({ title, updateFacilitiesNext }) => {
-  const [loading, setLoading] = useState(false);
+const SearchBlock: FC<SearchBlockProps> = ({ title, loading, updateFacilitiesNext }) => {
   const facilities = useSelector((state: any) => state.facility.facilities)
   const data: DataType[] = facilities.content || []
+
+  const [userInput, setUserInput] = useState("");
   
   useEffect(() => {
     console.log("search block mounted.")
-  })
+  }, [])
+
+  useEffect(() => {
+    console.log("== user input: ", userInput)
+    updateFacilitiesNext(1, userInput)
+  }, [userInput])
 
   const updatePagination = (e: any) => {
-    console.log("== e: ", e)
     const nextIndex = e
     updateFacilitiesNext(nextIndex)
+  }
+
+  const onChangeSearchValue = (e: any) => {
+    setUserInput(e.target.value)
   }
 
   return (
@@ -58,10 +68,15 @@ const SearchBlock: FC<SearchBlockProps> = ({ title, updateFacilitiesNext }) => {
       <div className={`${styles.searchBlock}`}>
         <div className={`${styles.searchInput}`}>
           <Search 
-            placeholder="Search Facilities by Address" 
+            placeholder="Search Facilities by Address Or ZipCodes" 
             enterButton="Search" 
             size="large" 
-            loading 
+            loading={loading} 
+            allowClear
+            maxLength={50}
+            value={userInput}
+            onChange={onChangeSearchValue}
+            onPressEnter={onChangeSearchValue}
           />
         </div>
         
@@ -71,7 +86,8 @@ const SearchBlock: FC<SearchBlockProps> = ({ title, updateFacilitiesNext }) => {
               columns={columns} 
               dataSource={data} 
               pagination={false} 
-              rowKey="locationid" 
+              rowKey="locationid"
+              loading={loading} 
               style={{
                 borderRadius: "8px",
                 overflow: "hidden"

@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect } from "react"
+import { FC, useContext, useEffect, useState } from "react"
 import styles from "./MainPage.module.scss"
 import MenuComp from "../../components/MenuComp/MenuComp"
 import { ThemeContext } from "../../context/themeContext"
@@ -11,20 +11,24 @@ import { useDispatch } from "react-redux"
 const MainPage: FC = () => {
     const dispatch = useDispatch();
     const { currentTheme } = useContext(ThemeContext)
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         console.log("main page mounted.")
         fetchFacilities()
     }, [])
 
-    const fetchFacilities = async (page?: number) => {
-        await FacilityApi.getAllFacilities(page)
+    const fetchFacilities = async (page?: number, filter?: string) => {
+        setLoading(true);
+        await FacilityApi.getAllFacilities(page, filter)
         .then((res) => {
             console.log("== facilitiesList: ", res)
             dispatch(updateFacilities(res))
+            setLoading(false);
         })
         .catch((e) => {
             console.log(e)
+            setLoading(false);
         })
     }
 
@@ -33,7 +37,10 @@ const MainPage: FC = () => {
             <div className={`container ${currentTheme==PAGE_THEME.DARK?'is-dark-mode':''}`}>
                 <MenuComp />
                 <div className={`${styles.mainPage}`}>
-                    <SearchBlock updateFacilitiesNext={fetchFacilities} />
+                    <SearchBlock 
+                    loading={loading}
+                    updateFacilitiesNext={fetchFacilities} 
+                />
                 </div>
             </div>
         </>
