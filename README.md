@@ -1,7 +1,7 @@
 # Links to github repositories for Food Trunk task. 
 
 Backend api :
-https://github.com/wenzhemint/rostorv-api
+https://github.com/wenzhemint/foodtrunk-api
 
 Frontend app:
 https://github.com/wenzhemint/foodtrunk-app
